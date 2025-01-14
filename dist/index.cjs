@@ -2,13 +2,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 
-import { fileURLToPath } from 'url';
-import { dirname, resolve } from 'path';
-import { validateComponentName, validateLayer } from './validators';
-import { PlopLogger } from './logger';
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import { resolve } from 'path';
+import { getTemplatesPath } from './utils/paths';
+// Validators
+export function validateComponentName(name) {
+    return /^[A-Z][a-zA-Z0-9]*$/.test(name);
+}
+export function validateLayer(layer, allowedLayers) {
+    return allowedLayers.includes(layer);
+}
+// Logger
+export class PlopLogger {
+    static info(message) {
+        console.log(`[plop-generate-component] ${message}`);
+    }
+    static error(error) {
+        console.error(`[plop-generate-component] Error: ${error.message}`);
+    }
+}
 const DEFAULT_CONFIG = {
-    templatesPath: resolve(__dirname, '../plop-templates'),
+    templatesPath: getTemplatesPath(),
     layerChoices: ['pages', 'features', 'shared', 'widgets', 'entities'],
     defaultMemo: false,
 };

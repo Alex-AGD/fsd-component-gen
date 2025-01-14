@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  dev:
+    build:
+      context: .
+      target: builder
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run generate:local
+    
+  test:
+    build:
+      context: .
+      target: tester
+    volumes:
+      - ./test-output:/test-project/src 

@@ -1,5 +1,6 @@
 package-lock.json
 public
 node_modules
-build
 package.json
+dist
+coverage

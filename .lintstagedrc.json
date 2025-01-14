@@ -1,5 +1,8 @@
 {
-  "*/**/*.{js,jsx,ts,tsx}": [
-    "prettier --write"
-  ]
+  "*.{ts,tsx}": [
+    "prettier --write",
+    "eslint --fix --config .eslintrc.json",
+    "jest --config jest.config.cjs --bail --findRelatedTests"
+  ],
+  "*.{json,md}": ["prettier --write"]
 }
