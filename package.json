@@ -2,6 +2,7 @@
   "name": "plop-generate-component",
   "version": "1.0.8",
   "description": "Библиотека для генерации компонентов с архитектурой FSD",
+  "type": "module",
   "main": "dist/index.js",
   "exports": {
     "import": "./dist/index.js",
