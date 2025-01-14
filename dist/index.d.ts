@@ -1,2 +1,3 @@
 import type { NodePlopAPI } from 'plop';
-export default function (plop: NodePlopAPI): void;
+import { PlopGeneratorConfig } from './types';
+export default function (plop: NodePlopAPI, config?: Partial<PlopGeneratorConfig>): void;
