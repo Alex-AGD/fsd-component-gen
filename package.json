@@ -24,9 +24,10 @@
   "author": "AlexAGD",
   "license": "MIT",
   "scripts": {
-    "build": "tsc && npm run build:cjs",
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "postbuild": "npm run build:cjs",
     "build:cjs": "node ./scripts/build-cjs.cjs",
-    "prebuild": "rimraf dist && mkdir -p dist/utils",
     "prepare": "npm run build",
     "prepare:husky": "husky install",
     "test": "jest --config jest.config.cjs",
