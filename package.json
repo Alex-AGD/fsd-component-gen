@@ -24,7 +24,9 @@
   "author": "AlexAGD",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist && tsc && npm run build:cjs",
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "postbuild": "npm run build:cjs",
     "build:cjs": "node ./scripts/build-cjs.cjs",
     "prepare": "npm run build",
     "prepare:husky": "husky install",

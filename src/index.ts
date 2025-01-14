@@ -3,16 +3,16 @@ import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
 
 // Validators
-export function validateComponentName(name: string): boolean {
+function validateComponentName(name: string): boolean {
   return /^[A-Z][a-zA-Z0-9]*$/.test(name);
 }
 
-export function validateLayer(layer: string, allowedLayers: string[]): boolean {
+function validateLayer(layer: string, allowedLayers: string[]): boolean {
   return allowedLayers.includes(layer);
 }
 
 // Logger
-export class PlopLogger {
+class PlopLogger {
   static info(message: string) {
     console.log(`[plop-generate-component] ${message}`);
   }
