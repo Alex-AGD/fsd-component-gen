@@ -1,18 +1,18 @@
 import type { NodePlopAPI } from 'plop';
-import { fileURLToPath } from 'url';
-import { dirname, resolve } from 'path';
+import { resolve } from 'path';
+import { getTemplatesPath } from './utils/index.js';
 
 // Validators
-function validateComponentName(name: string): boolean {
+export function validateComponentName(name: string): boolean {
   return /^[A-Z][a-zA-Z0-9]*$/.test(name);
 }
 
-function validateLayer(layer: string, allowedLayers: string[]): boolean {
+export function validateLayer(layer: string, allowedLayers: string[]): boolean {
   return allowedLayers.includes(layer);
 }
 
 // Logger
-class PlopLogger {
+export class PlopLogger {
   static info(message: string) {
     console.log(`[plop-generate-component] ${message}`);
   }
@@ -32,10 +32,8 @@ interface PlopGeneratorConfig {
   defaultMemo?: boolean;
 }
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
 const DEFAULT_CONFIG: PlopGeneratorConfig = {
-  templatesPath: resolve(__dirname, '../plop-templates'),
+  templatesPath: getTemplatesPath(),
   layerChoices: ['pages', 'features', 'shared', 'widgets', 'entities'],
   defaultMemo: false,
 };
