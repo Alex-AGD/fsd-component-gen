@@ -2,17 +2,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 
-import { resolve } from 'path';
-import { getTemplatesPath } from './utils/paths';
+const path = require('path');
+
+const { resolve  } = require("path");
+const { getTemplatesPath  } = require("./utils/paths");
 // Validators
-export function validateComponentName(name) {
+exports.validateComponentName = function validateComponentName(name) {
     return /^[A-Z][a-zA-Z0-9]*$/.test(name);
 }
-export function validateLayer(layer, allowedLayers) {
+exports.validateLayer = function validateLayer(layer, allowedLayers) {
     return allowedLayers.includes(layer);
 }
 // Logger
-export class PlopLogger {
+exports.PlopLogger = class PlopLogger {
     static info(message) {
         console.log(`[plop-generate-component] ${message}`);
     }
@@ -25,7 +27,7 @@ const DEFAULT_CONFIG = {
     layerChoices: ['pages', 'features', 'shared', 'widgets', 'entities'],
     defaultMemo: false,
 };
-module.exports =  function (plop, config = {}) {
+module.exports = function (plop, config = {}) {
     const finalConfig = { ...DEFAULT_CONFIG, ...config };
     PlopLogger.info('Initializing component generator...');
     plop.setGenerator('component', {

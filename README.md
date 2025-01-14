@@ -9,7 +9,7 @@ npm install plop-generate-component
 
 ## Использование
 
-1. Создайте файл `plopfile.js` (или `plopfile.mjs` для ESM) в корне вашего проекта:
+1. Создайте файл ( `plopfile.mjs` для ESM) в корне вашего проекта:
 
 javascript
 import generateComponent from 'plop-generate-component';
@@ -18,15 +18,15 @@ generateComponent(plop);
 }
 
 2. Добавьте скрипт в package.json:
-{
-"scripts": {
-"generate": "plop component"
-}
-}
+   {
+   "scripts": {
+   "generate": "plop component"
+   }
+   }
 
 3. Запустите генератор:
-bash
-npm run generate
+   bash
+   npm run generate
 
 ## Возможности
 
