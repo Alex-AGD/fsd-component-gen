@@ -1,0 +1,24 @@
+import { bindActionCreators, createSlice } from '@reduxjs/toolkit';
+import { {{pascalCase name}}State } from '@/src/entities/{{camelCase name}}/types';
+import { useMemo } from 'react';
+import { useAppDispatch } from '@/src/shared/lib/hooks/useAppDispatch/useAppDispatch';
+
+const initialState: {{pascalCase name}}State = {
+  id: null,
+};
+
+const {{camelCase name}}Slice = createSlice({
+name: '{{camelCase name}}Slice',
+initialState,
+  reducers: {
+    cleanState: () => initialState,
+  },
+});
+
+export const { actions: {{camelCase name}}Actions } = {{camelCase name}}Slice;
+export const { reducer: {{camelCase name}}Reducer } = {{camelCase name}}Slice;
+
+export const useActions{{camelCase name}} = () => {
+  const dispatch = useAppDispatch();
+  return useMemo(() => bindActionCreators({{camelCase name}}Actions, dispatch), [dispatch]);
+};
