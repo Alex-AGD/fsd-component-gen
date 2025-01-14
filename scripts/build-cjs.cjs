@@ -14,8 +14,7 @@ ${esmCode
   .replace('export default', 'module.exports =')
   .replace(/export\s+function\s+(\w+)/g, 'exports.$1 = function $1')
   .replace(/export\s+class\s+(\w+)/g, 'exports.$1 = class $1')
-  .replace(/export \* from/g, 'Object.assign(exports, require')
-  .replace(/['"]\.\/utils\/paths['"]/g, "'./utils'")
+  .replace(/from ['"]\.\/utils['"]/g, 'from "./utils/index.js"')
 }
 `;
 
