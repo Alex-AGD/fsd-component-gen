@@ -1,9 +1,36 @@
 import type { NodePlopAPI } from 'plop';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
-import { PlopGeneratorConfig } from './types';
-import { validateComponentName, validateLayer } from './validators';
-import { PlopLogger } from './logger';
+
+// Validators
+function validateComponentName(name: string): boolean {
+  return /^[A-Z][a-zA-Z0-9]*$/.test(name);
+}
+
+function validateLayer(layer: string, allowedLayers: string[]): boolean {
+  return allowedLayers.includes(layer);
+}
+
+// Logger
+class PlopLogger {
+  static info(message: string) {
+    console.log(`[plop-generate-component] ${message}`);
+  }
+
+  static error(error: Error) {
+    console.error(`[plop-generate-component] Error: ${error.message}`);
+  }
+}
+
+// Types
+interface PlopGeneratorConfig {
+  templatesPath?: string;
+  customTemplates?: {
+    [key: string]: string;
+  };
+  layerChoices?: string[];
+  defaultMemo?: boolean;
+}
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

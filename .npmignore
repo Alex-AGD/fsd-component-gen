@@ -1,4 +1,13 @@
-node_modules
-src
-.git
+src/
+scripts/
+.github/
+.vscode/
+.idea/
+.git/
 .gitignore
+.eslintrc*
+.prettierrc*
+tsconfig.json
+jest.config.*
+*.test.*
+*.spec.*
