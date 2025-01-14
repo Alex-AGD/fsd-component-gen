@@ -22,10 +22,3 @@ jobs:
 
       - name: Build package
         run: npm run build
-
-      # Если у вас есть тесты, линтер и т.д., добавьте их здесь
-      # - name: Run tests
-      #   run: npm test
-
-      # - name: Run linter
-      #   run: npm run lint 
