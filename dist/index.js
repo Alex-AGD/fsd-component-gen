@@ -1,7 +1,21 @@
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
-import { validateComponentName, validateLayer } from './validators';
-import { PlopLogger } from './logger';
+// Validators
+function validateComponentName(name) {
+    return /^[A-Z][a-zA-Z0-9]*$/.test(name);
+}
+function validateLayer(layer, allowedLayers) {
+    return allowedLayers.includes(layer);
+}
+// Logger
+class PlopLogger {
+    static info(message) {
+        console.log(`[plop-generate-component] ${message}`);
+    }
+    static error(error) {
+        console.error(`[plop-generate-component] Error: ${error.message}`);
+    }
+}
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_CONFIG = {
     templatesPath: resolve(__dirname, '../plop-templates'),
