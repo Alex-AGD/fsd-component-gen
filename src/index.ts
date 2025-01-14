@@ -1,6 +1,6 @@
 import type { NodePlopAPI } from 'plop';
 import { resolve } from 'path';
-import { getTemplatesPath } from './utils/index.js';
+import { getTemplatesPath } from './utils';
 
 // Validators
 export function validateComponentName(name: string): boolean {

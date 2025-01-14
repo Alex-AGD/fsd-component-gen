@@ -1,1 +1,1 @@
-export { getTemplatesPath } from './paths.js';
+export * from './paths';
