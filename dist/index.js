@@ -1,13 +1,9 @@
-import type { NodePlopAPI } from 'plop';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
-export default function (plop: NodePlopAPI) {
+export default function (plop) {
     // Получаем путь к папке с шаблонами в установленном пакете
     const templatesPath = resolve(__dirname, '../plop-templates');
-    
     plop.setGenerator('component', {
         description: 'Создание нового компонента с FSD архитектурой',
         prompts: [
@@ -38,7 +34,6 @@ export default function (plop: NodePlopAPI) {
         ],
         actions: function (data) {
             const actions = [];
-
             // Структура для 'features'
             if (data?.layer === 'features') {
                 actions.push({
@@ -46,42 +41,34 @@ export default function (plop: NodePlopAPI) {
                     path: 'src/{{layer}}/{{camelCase name}}/ui/{{pascalCase name}}Features.tsx',
                     templateFile: resolve(templatesPath, data.useMemo ? 'memoComponent.hbs' : 'component.hbs'),
                 });
-
                 actions.push({
                     type: 'add',
                     path: 'src/{{layer}}/{{camelCase name}}/model/{{camelCase name}}Model.ts',
                     templateFile: resolve(templatesPath, 'model.hbs'),
                 });
-
                 actions.push({
                     type: 'add',
                     path: 'src/{{layer}}/{{camelCase name}}/schema/{{camelCase name}}Schema.ts',
                     templateFile: resolve(templatesPath, 'schema.hbs'),
                 });
-
                 actions.push({
                     type: 'add',
                     path: 'src/{{layer}}/{{camelCase name}}/index.ts',
                     templateFile: resolve(templatesPath, 'indexNoLazy.hbs'),
                 });
             }
-
             // Структура для 'shared'
             else if (data?.layer === 'shared') {
-                actions.push(
-                    {
-                        type: 'add',
-                        path: 'src/shared/components/{{camelCase name}}/ui/{{pascalCase name}}.tsx',
-                        templateFile: resolve(templatesPath, data.useMemo ? 'memoComponent.hbs' : 'component.hbs'),
-                    },
-                    {
-                        type: 'add',
-                        path: 'src/shared/index.js',
-                        templateFile: resolve(templatesPath, 'indexShared.hbs'),
-                        skipIfExists: true,
-                    }
-                );
-
+                actions.push({
+                    type: 'add',
+                    path: 'src/shared/components/{{camelCase name}}/ui/{{pascalCase name}}.tsx',
+                    templateFile: resolve(templatesPath, data.useMemo ? 'memoComponent.hbs' : 'component.hbs'),
+                }, {
+                    type: 'add',
+                    path: 'src/shared/index.js',
+                    templateFile: resolve(templatesPath, 'indexShared.hbs'),
+                    skipIfExists: true,
+                });
                 actions.push({
                     type: 'append',
                     path: 'src/shared/index.js',
@@ -89,7 +76,6 @@ export default function (plop: NodePlopAPI) {
                     template: `export * from './components/{{camelCase name}}/ui/{{pascalCase name}}';\n`,
                 });
             }
-
             // Структура для 'entities'
             else if (data?.layer === 'entities') {
                 actions.push({
@@ -97,32 +83,27 @@ export default function (plop: NodePlopAPI) {
                     path: 'src/{{layer}}/{{camelCase name}}/model/selectors/selectors.ts',
                     templateFile: resolve(templatesPath, 'selectors.hbs'),
                 });
-
                 actions.push({
                     type: 'add',
                     path: 'src/{{layer}}/{{camelCase name}}/model/slice/slice.ts',
                     templateFile: resolve(templatesPath, 'slice.hbs'),
                 });
-
                 actions.push({
                     type: 'add',
                     path: 'src/{{layer}}/{{camelCase name}}/types/index.ts',
                     templateFile: resolve(templatesPath, 'types.hbs'),
                 });
-
                 actions.push({
                     type: 'add',
                     path: 'src/{{layer}}/{{camelCase name}}/ui/{{pascalCase name}}.tsx',
                     templateFile: resolve(templatesPath, data.useMemo ? 'memoComponent.hbs' : 'component.hbs'),
                 });
-
                 actions.push({
                     type: 'add',
                     path: 'src/{{layer}}/{{camelCase name}}/index.ts',
                     templateFile: resolve(templatesPath, 'indexEntity.hbs'),
                 });
             }
-
             // Общая структура для остальных слоёв
             else {
                 actions.push({
@@ -130,26 +111,22 @@ export default function (plop: NodePlopAPI) {
                     path: 'src/{{layer}}/{{camelCase name}}/ui/{{pascalCase name}}.tsx',
                     templateFile: resolve(templatesPath, data?.useMemo ? 'memoComponent.hbs' : 'componentPages.hbs'),
                 });
-
                 actions.push({
                     type: 'add',
                     path: 'src/{{layer}}/{{camelCase name}}/model/{{camelCase name}}Model.ts',
                     templateFile: resolve(templatesPath, 'model.hbs'),
                 });
-
                 actions.push({
                     type: 'add',
                     path: 'src/{{layer}}/{{camelCase name}}/schema/{{camelCase name}}Schema.ts',
                     templateFile: resolve(templatesPath, 'schema.hbs'),
                 });
-
                 actions.push({
                     type: 'add',
                     path: 'src/{{layer}}/{{camelCase name}}/index.ts',
                     templateFile: resolve(templatesPath, 'index.hbs'),
                 });
             }
-
             // Создание компонента byID для pages
             if (data?.withByID) {
                 actions.push({
@@ -157,7 +134,6 @@ export default function (plop: NodePlopAPI) {
                     path: 'src/pages/{{camelCase name}}/ui/{{pascalCase name}}ByID.tsx',
                     templateFile: resolve(templatesPath, 'componentByID.hbs'),
                 });
-
                 actions.push({
                     type: 'append',
                     path: 'src/pages/{{camelCase name}}/index.ts',
@@ -165,7 +141,6 @@ export default function (plop: NodePlopAPI) {
                     template: `export const {{pascalCase name}}ByIDAsync = lazy(() => import('./ui/{{pascalCase name}}ByID'));\nexport { {{pascalCase name}}ByIDAsync as {{pascalCase name}}ByID };`,
                 });
             }
-
             return actions;
         },
     });

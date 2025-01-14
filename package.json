@@ -1,14 +1,39 @@
 {
-  "name": "${PROJECT_NAME}",
-  "version": "1.0.0",
-  "description": "",
+  "name": "plop-generate-component",
+  "version": "1.0.4",
+  "description": "Библиотека для генерации компонентов с архитектурой FSD",
+  "type": "module",
   "main": "dist/index.js",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
+  "files": [
+    "dist",
+    "plop-templates"
+  ],
+  "keywords": [
+    "plop",
+    "generator",
+    "react",
+    "component",
+    "fsd",
+    "feature-sliced",
+    "architecture"
+  ],
+  "author": "Ваше имя",
+  "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc && npm run build:cjs",
+    "build:cjs": "node ./scripts/build-cjs.js",
+    "prepare": "npm run build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "plop": "^4.0.1"
+  },
   "devDependencies": {
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "@types/node": "^20.11.0"
   },
-  "private": true
+  "private": false
 }
