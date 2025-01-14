@@ -2,6 +2,7 @@
   "name": "plop-generate-component",
   "version": "1.0.7",
   "description": "Библиотека для генерации компонентов с архитектурой FSD",
+  "type": "module",
   "main": "dist/index.js",
   "exports": {
     "import": "./dist/index.js",
@@ -20,18 +21,16 @@
     "feature-sliced",
     "architecture"
   ],
-  "author": "AlexAGD",
+  "author": "Ваше имя",
   "license": "MIT",
   "scripts": {
     "build": "tsc && npm run build:cjs",
-    "build:cjs": "node ./scripts/build-cjs.cjs",
+    "build:cjs": "node ./scripts/build-cjs.js",
     "prepare": "npm run build",
-    "prepare:husky": "husky install",
-    "test": "jest --config jest.config.cjs",
-    "test:watch": "jest --config jest.config.cjs --watch",
-    "test:coverage": "jest --config jest.config.cjs --coverage",
-    "lint": "eslint \"src/**/*.ts\" --config .eslintrc.json",
-    "format": "prettier --write \"src/**/*.ts\""
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
+    "generate:local": "tsx scripts/generate-local.ts"
   },
   "dependencies": {
     "plop": "^4.0.1"
@@ -44,14 +43,27 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.0.0",
-    "eslint-config-prettier": "^9.0.0",
-    "husky": "^8.0.0",
     "jest": "^29.0.0",
-    "lint-staged": "^15.0.0",
     "prettier": "^3.0.0",
     "ts-jest": "^29.0.0",
     "tsx": "^4.7.0",
     "typescript": "^5.5.3"
   },
-  "private": false
+  "private": false,
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1"
+    },
+    "transform": {
+      "^.+\\.tsx?$": [
+        "ts-jest",
+        {
+          "useESM": true
+        }
+      ]
+    },
+    "extensionsToTreatAsEsm": [".ts"]
+  }
 }
